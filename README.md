@@ -1,4 +1,4 @@
-# Slidepay::Ruby::Sdk
+# Slidepay Ruby Sdk
 
 TODO: Write a gem description
 
