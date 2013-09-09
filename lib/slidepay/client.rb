@@ -3,25 +3,10 @@ module SlidePay
     @endpoint   = nil
     @email      = nil
     @password   = nil
+    @token      = nil
+    @api_key    = nil
 
     def initialize(token)
-
     end
-
-    def apiRequest (type, path, data, options={})
-    end
-
-    def get
-    end
-
-    def post
-    end
-
-    def put
-    end
-
-    def delete
-    end
-
   end
 end
