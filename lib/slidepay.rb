@@ -9,28 +9,20 @@ module SlidePay
   PROXY_URI = '127.0.0.1:8888'
   DEBUG = false
 
-  @token = nil
-  @api_key = nil
-
-  def token=(token)
-    @token = token
-  end
-
-  def api_key=(api_key)
-    @api_key = api_key
-  end
-
   class << self
+    attr_accessor :token
+    attr_accessor :api_key
+
     def set_auth_option(auth)
       options = {}
       if auth[:token]
         options["x-cube-token"] = auth[:token]
       elsif auth[:api_key]
-        options["x-cube-api_key"] = auth[:api_key]
+        options["x-cube-api-key"] = auth[:api_key]
       elsif @token
         options["x-cube-token"] = @token
       elsif @api_key
-        options["x-cube-api_key"] = @api_key
+        options["x-cube-api-key"] = @api_key
       end
 
       options
