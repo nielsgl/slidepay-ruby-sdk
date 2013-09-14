@@ -1,14 +1,21 @@
+# Dependencies
+require "rest-client"
+require "multi_json"
+
+# SlidePay Modules and
 require "slidepay/version"
-require "rest_client"
+require "slidepay/config"
+require "slidepay/response"
+
+# Instance-Level API Interaction
+require "slidepay/client"
+
+# CRUD Capable Resources
+require "slidepay/resources/api_resource"
+# require "slidepay/resources/api_key"
+# require "slidepay/resources/payment"
 
 module SlidePay
-  SUPERVISOR_URL = 'https://supervisor.getcube.com:65532/rest.svc/API/'
-  PROD_API_URL = 'https://api.getcube.com:65532/rest.svc/API/'
-  DEV_API_URL = 'https://dev.getcube.com:65532/rest.svc/API/'
-  USE_PROXY = false
-  PROXY_URI = '127.0.0.1:8888'
-  DEBUG = false
-
   class << self
     attr_accessor :token, :api_key, :endpoint
 
@@ -35,6 +42,22 @@ module SlidePay
       options
     end
 
+    def retrieve_token(email, password)
+      get(path: "login", :email => email, :password => password)
+    end
+
+    def retrieve_endpoint(email)
+      get(path: "endpoint", :email => email)
+    end
+
+    def validate_token(token)
+
+    end
+
+    def validate_api_key(api_key)
+
+    end
+
     def request(type, request_options_hash)
       options = { "Content-Type" => "application/json" }
       options.merge! get_auth_option request_options_hash
@@ -47,10 +70,9 @@ module SlidePay
         options["x-cube-password"] = request_options_hash[:password]
       end
 
-      url = "#{get_endpoint_option(request_options_hash)}/#{request_options_hash[:path]}"
+      url = "#{get_endpoint_option(request_options_hash)}#{request_options_hash[:path]}"
       data = request_options_hash[:data]
 
-      # type, path, data, auth={}, options={}
       begin
         case type
         when "GET"
@@ -65,7 +87,8 @@ module SlidePay
           raise Exception.new("Invalid request type specified")
         end
       rescue => e
-        raise Exception.new("Request to #{url} failed with status code: #{e}")
+        # raise Exception.new("Request to #{url} failed with status code: #{e}")
+        e
       end
     end
 
@@ -93,12 +116,24 @@ module SlidePay
       request("DELETE", request_options_hash)
     end
 
-    def configure
-      if @endpoint == nil
+    def configure(options_hash={})
+      if options_hash[:api_key]
+        @api_key = options_hash[:api_key]
+      end
+
+      if options_hash[:token]
+        @token = options_hash[:token]
+      end
+
+      if options_hash[:endpoint]
+        @endpoint = options_hash[:endpoint]
+      elsif options_hash[:development] == true
+        @endpoint = DEV_API_URL
+      else
         @endpoint = SUPERVISOR_URL
       end
     end
-
-    # configure
   end
+
+  self.configure
 end

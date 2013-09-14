@@ -20,5 +20,32 @@ module SlidePay
       end
     end
 
+    def is_authenticated?
+      @token != nil || @api_key != nil
+    end
+
+    def authenticate(email, password)
+      response = SlidePay.retrieve_token(email, password)
+      puts "Authenticated with SlidePay? -- #{response}"
+    end
+
+    def save(resource)
+      puts "Client.save called"
+
+      if resource.is_new?
+        SlidePay.post(path: resource.url(), token: @token, api_key: @api_key, data: resource.to_json())
+      else
+        SlidePay.put(path: resource.url(), token: @token, api_key: @api_key, data: resource.to_json())
+      end
+    end
+
+    def create(resource)
+      puts "Client.create called"
+    end
+
+    def destroy
+      puts "Client.destroy called"
+    end
+
   end
 end
