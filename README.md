@@ -110,3 +110,9 @@ ENV["api_key"]    = "super-secret-api-key-that-you-never-share"
 The SlidePay::Client class and SlidePay::ApiResource classes are not fully tested or functional.
 
 Though I do not mention authentication in most examples following the authentication section of this document, an api_key or token, and an endpoint, can be supplied to any method that results triggers an API request. This flexibility allows for interacting with a single instance of a single ApiResource class without having to use the SlidePay module methods or the SlidePay::Client class. It also accommodates those developers who may wish to authenticate many SlidePay accounts within a single thread, such as inside a request context of a Rails application, or in a scheduled task, without having to repeatedly reset the SlidePay.token or SlidePay.api_key global values.
+
+## License
+
+The MIT License (MIT)
+
+Copyright (c) 2013 SlidePay
