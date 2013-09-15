@@ -26,7 +26,7 @@ module SlidePay
 
     def save
       puts "ApiResource.save called"
-      if id()
+      if is_new?
         puts "Saving existing #{@id_attribute}"
         SlidePay.put(token: @token, api_key: @api_key, path: "#{@name}/#{self[@id_attribute]}", data: self.to_json)
       else

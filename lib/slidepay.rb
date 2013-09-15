@@ -50,14 +50,6 @@ module SlidePay
       get(path: "endpoint", :email => email)
     end
 
-    def validate_token(token)
-
-    end
-
-    def validate_api_key(api_key)
-
-    end
-
     def request(type, request_options_hash)
       options = { "Content-Type" => "application/json" }
       options.merge! get_auth_option request_options_hash

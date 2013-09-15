@@ -29,6 +29,10 @@ module SlidePay
       puts "Authenticated with SlidePay? -- #{response}"
     end
 
+    def retrieve(resource)
+      SlidePay.get(path: resource.url(), token: @token, api_key: @api_key)
+    end
+
     def save(resource)
       puts "Client.save called"
 
@@ -41,10 +45,13 @@ module SlidePay
 
     def create(resource)
       puts "Client.create called"
+
+      SlidePay.post(path: resource.url(), token: @token, api_key: @api_key, data: resource.to_json())
     end
 
     def destroy
       puts "Client.destroy called"
+      SlidePay.delete(path: resource.url(), token: @token, api_key: @api_key)
     end
 
   end

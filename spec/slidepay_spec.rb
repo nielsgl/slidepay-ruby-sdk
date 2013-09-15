@@ -1,35 +1,9 @@
 require "slidepay"
+require "spec_helper"
 
 describe SlidePay do
   def public_methods
     [:get_auth_option, :request, :get, :post, :put, :delete]
-  end
-
-  def set_global_api_key
-    SlidePay.api_key = "TEST_API_KEY"
-  end
-
-  def set_global_token
-    SlidePay.token = "TEST_TOKEN"
-  end
-
-  def set_global_endpoint
-    SlidePay.endpoint = "TEST_ENDPOINT"
-  end
-
-  def clear_auth_data
-    SlidePay.api_key = nil
-    SlidePay.token = nil
-  end
-
-  def clear_endpoint
-    SlidePay.endpoint = nil
-  end
-
-  def clear_slidepay
-    SlidePay.token = nil
-    SlidePay.api_key = nil
-    SlidePay.endpoint = nil
   end
 
   it "should have a version" do
