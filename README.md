@@ -69,7 +69,7 @@ SlidePay::ApiResources are classes that encapsulate RESTful API resources. API i
 - ```destroy ```
 - ```retrieve ```
 
-The ```save``` method can handle both creation, via POST, and updating, via PUT, and determines which verb is appropriate by the ApiResource.is_new? method, which checks for the presence of an id in the resource.
+The ```save``` method can handle both creation, via POST, and updating, via PUT, and determines which verb is appropriate by the ```ApiResource.is_new?``` method, which checks for the presence of an id in the resource.
 
 ## Payments
 
