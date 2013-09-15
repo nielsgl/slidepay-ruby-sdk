@@ -65,6 +65,27 @@ SlidePay::ApiResources are classes that encapsulate RESTful API resources. API i
 
 The ```save``` method can handle both creation, via POST, and updating, via PUT, and determines which verb is appropriate by the ApiResource.is_new? method, which checks for the presence of an id in the resource.
 
+## Payments
+
+Payments are much like resources, except they cannot be updated or destroyed once created. Two more relevant instance methods for interacting with payments are provided.
+
+To process a payment, supply a JSON representation of a valid [simple_payment](https://getcube.atlassian.net/wiki/display/CDP/Processing+a+Simple+Payment) object on instantiation, and then call that instance's ```process``` method:
+
+```ruby
+p = SlidePay::Payment.new(simple_payment_json)
+p.process()
+```
+
+To refund a payment, call an existing payment's ```refund``` method, or POST to the ```payment/refund/:payment_id``` API path:
+
+```ruby
+# Refund from an object
+p.refund()
+
+# Refund using SlidePay.post
+SlidePay.post(path: 'payment/refund/#{payment_id}')
+```
+
 ## Testing
 
 Test are in the spec directory, and can be run from the root of the repository:
@@ -88,3 +109,4 @@ ENV["api_key"]    = "super-secret-api-key-that-you-never-share"
 
 The SlidePay::Client class and SlidePay::ApiResource classes are not fully tested or functional.
 
+Though I do not mention authentication in most examples following the authentication section of this document, an api_key or token, and an endpoint, can be supplied to any method that results triggers an API request. This flexibility allows for interacting with a single instance of a single ApiResource class without having to use the SlidePay module methods or the SlidePay::Client class. It also accommodates those developers who may wish to authenticate many SlidePay accounts within a single thread, such as inside a request context of a Rails application, or in a scheduled task, without having to repeatedly reset the SlidePay.token or SlidePay.api_key global values.
