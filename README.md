@@ -11,6 +11,8 @@ We depend on these fantastic libraries:
 
 ## Building the Gem
 
+From the root of the repository, run the ```gem build``` command:
+
 ```bash
 $ gem build slidepay.gemspec
 ```
@@ -80,14 +82,6 @@ Your populated environment.rb should look something like this:
 ENV["email"]      = "email@example.com"
 ENV["password"]   = "really_secure_password"
 ENV["api_key"]    = "super-secret-api-key-that-you-never-share"
-```
-
-## Building
-
-From the root of the repository, run the ```gem build``` command:
-
-```bash
-$ gem build slidepay.gemspec
 ```
 
 ## Note
