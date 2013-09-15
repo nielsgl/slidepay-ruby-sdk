@@ -17,7 +17,11 @@ From the root of the repository, run the ```gem build``` command:
 $ gem build slidepay.gemspec
 ```
 
-## The Basics
+## How Does SlidePay's API Work?
+
+Check out our [main documentation](https://getcube.atlassian.net/wiki/display/CDP/Getting+Started) for detailed information about how the API works, as well as information about functionality not yet wrapped by this library.
+
+## The Ruby SDK Basics
 
 Requests can be made three ways:
 
@@ -27,7 +31,9 @@ Requests can be made three ways:
 
 ## Authentication
 
-An authenticated request can be made if either an api_key or token are supplied to the request method.
+Note: The [authentication page of the api documentation](https://getcube.atlassian.net/wiki/display/CDP/Making+your+first+API+call%3A+authentication) explains how tokens and api_keys work with the SlidePay API.
+
+An authenticated request to SlidePay can be made if either an api_key or token are supplied to the request method.
 
 Either of these fields can be set globally by assigning ```SlidePay.token``` or ```SlidePay.api_key```:
 
