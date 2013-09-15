@@ -2,6 +2,13 @@
 
 First version of the SlidePay Ruby SDK
 
+## Dependencies
+
+We depend on these fantastic libraries:
+
+- [rest-client](https://github.com/rest-client/rest-client)
+- [multi_json](https://github.com/intridea/multi_json)
+
 ## Building the Gem
 
 ```bash
