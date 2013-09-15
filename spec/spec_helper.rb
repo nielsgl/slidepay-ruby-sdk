@@ -1,4 +1,21 @@
+$:.unshift(File.join(File.dirname(__FILE__), '../'))
+
 require 'multi_json'
+require 'pathname'
+
+if Pathname.new('environment.rb').exist?
+  require 'environment'
+end
+
+module SlidePay
+  TEST_EMAIL = ENV["email"]
+  TEST_PASSWORD = ENV["password"]
+  TEST_API_KEY = ENV["api_key"]
+end
+
+def set_global_api_key_from_env
+  SlidePay.api_key = SlidePay::TEST_API_KEY
+end
 
 def set_global_api_key
   SlidePay.api_key = "TEST_API_KEY"

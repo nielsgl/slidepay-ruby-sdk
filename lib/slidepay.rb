@@ -80,8 +80,10 @@ module SlidePay
         end
       rescue => e
         # raise Exception.new("Request to #{url} failed with status code: #{e}")
-        e
+        response = e.response
       end
+
+      Response.new(response)
     end
 
     def get(request_options_hash)

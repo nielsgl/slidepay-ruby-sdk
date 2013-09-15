@@ -150,6 +150,115 @@ describe SlidePay do
       expect(SlidePay.api_key).to eq(nil)
       expect(auth).to eq({ "x-cube-token" => "PASSED_IN_TOKEN" })
     end
-
   end
+
+  describe "request" do
+    before(:each) do
+      SlidePay.configure(development: true)
+
+      # RestClient = double("RestClient")
+      # RestClient.stub(:get) { failed_endpoint_response}
+      # RestClient.stub(:put) { failed_endpoint_response}
+      # RestClient.stub(:post) { failed_endpoint_response}
+      # RestClient.stub(:delete) { failed_endpoint_response}
+    end
+
+    it "should always return a SlidePay::Response object" do
+      r_get = SlidePay.request("GET", { :path => 'login'})
+      r_put = SlidePay.request("PUT", { :path => 'login'})
+      r_post = SlidePay.request("POST", { :path => 'login'})
+      r_delete = SlidePay.request("DELETE", { :path => 'login'})
+
+      expect(r_get).to be_a(SlidePay::Response)
+      expect(r_put).to be_a(SlidePay::Response)
+      expect(r_post).to be_a(SlidePay::Response)
+      expect(r_delete).to be_a(SlidePay::Response)
+    end
+
+    it "should raise an error for invalid request types" do
+      expect { SlidePay.request("INVALID_TYPE", {}) }.to raise_error
+    end
+  end
+
+  describe "retrieve_token" do
+    before(:all) do
+      clear_slidepay
+      SlidePay.configure(development: true)
+    end
+
+    it "should always return a SlidePay::Response" do
+      r = SlidePay.retrieve_token('','')
+      expect(r).to be_a(SlidePay::Response)
+    end
+
+    it "should return a token value on success" do
+      r = SlidePay.retrieve_token(SlidePay::TEST_EMAIL,SlidePay::TEST_PASSWORD)
+
+      expect(r.data).to be_a(String)
+    end
+
+    it "should return an error object on failure" do
+      r = SlidePay.retrieve_token('','')
+
+      expect(r.data).to be_a(Hash)
+      expect(r.error).to be_a(Hash)
+    end
+  end
+
+  describe "retrieve_endpoint" do
+    before(:all) do
+      clear_slidepay
+      SlidePay.configure()
+    end
+
+    it "should always return a string" do
+      r = SlidePay.retrieve_endpoint('')
+      expect(r).to be_a(SlidePay::Response)
+    end
+
+    it "should return an endpoint value on success" do
+      r = SlidePay.retrieve_endpoint('matt+test@getcube.com')
+
+      expect(r.data).to be_a(String)
+      expect(r.data).to include("getcube.com")
+    end
+
+    it "should return an error object on failure" do
+      r = SlidePay.retrieve_endpoint('')
+
+      expect(r.data).to be_a(Hash)
+      expect(r.error).to be_a(Hash)
+    end
+  end
+
+  describe "get" do
+    before(:all) do
+      SlidePay.configure(development: true)
+      set_global_api_key_from_env
+    end
+
+    it "should accept a string" do
+      expect(SlidePay.get('token/detail')).to be_a(SlidePay::Response)
+    end
+
+    it "should accept a hash" do
+      expect(SlidePay.get(path: 'token/detail')).to be_a(SlidePay::Response)
+    end
+  end
+
+  describe "delete" do
+    before(:all) do
+      SlidePay.configure(development: true)
+      set_global_api_key_from_env
+    end
+
+    it "should accept a string" do
+      expect(SlidePay.delete('fictional_object/2')).to be_a(SlidePay::Response)
+    end
+
+    it "should accept a hash" do
+      expect(SlidePay.delete(path: 'fictional_object/2')).to be_a(SlidePay::Response)
+    end
+  end
+
 end
