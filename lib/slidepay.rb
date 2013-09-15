@@ -42,6 +42,16 @@ module SlidePay
       options
     end
 
+    def authenticate(email, password)
+      response = retrieve_token(email, password)
+      if response.was_successful?
+        @token = response.data
+        true
+      else
+        false
+      end
+    end
+
     def retrieve_token(email, password)
       get(path: "login", :email => email, :password => password)
     end

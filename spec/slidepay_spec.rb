@@ -261,4 +261,21 @@ describe SlidePay do
     end
   end
 
+  describe "authenticate" do
+    before(:each) do
+      clear_slidepay
+      SlidePay.configure(development: true)
+    end
+
+    it "should have a token after a successful authentication" do
+      expect(SlidePay.authenticate(SlidePay::TEST_EMAIL, SlidePay::TEST_PASSWORD)).to eq(true)
+      expect(SlidePay.token).not_to eq(nil)
+    end
+
+    it "should not have a token after a successful authentication" do
+      expect(SlidePay.authenticate('','')).to eq(false)
+      expect(SlidePay.token).to eq(nil)
+    end
+  end
+
 end

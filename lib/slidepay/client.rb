@@ -24,12 +24,27 @@ module SlidePay
       @token != nil || @api_key != nil
     end
 
-    def authenticate(email, password)
+    def authenticate(email=nil, password=nil)
+      email = email || @email
+      password = password || @password
+
       response = SlidePay.retrieve_token(email, password)
-      puts "Authenticated with SlidePay? -- #{response}"
+
+      if response.was_successful?
+        @token = response.data
+        true
+      else
+        false
+      end
+    end
+
+    def list()
+
     end
 
     def retrieve(resource)
+      puts "Client.retrieve called"
+
       SlidePay.get(path: resource.url(), token: @token, api_key: @api_key)
     end
 
