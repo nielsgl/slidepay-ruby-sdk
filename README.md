@@ -57,7 +57,7 @@ These fields can also be used on an instance or per-request level by either pass
 SlidePay.get(path: "payment/#{payment_id}", token: "MY_TOKEN")
 ```
 or
-```
+```ruby
 SlidePay.get(path: "payment/#{payment_id}", api_key: "MY_TOKEN")
 ```
 
