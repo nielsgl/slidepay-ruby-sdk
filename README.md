@@ -1,24 +1,61 @@
 # Slidepay Ruby Sdk
 
-TODO: Write a gem description
+First version of the SlidePay Ruby SDK
 
-## Installation
+## Building the Gem
 
-Add this line to your application's Gemfile:
+```bash
+$ gem build slidepay.gemspec
+```
 
-    gem 'slidepay-ruby-sdk'
+## The Basics
 
-And then execute:
+Requests can be made three ways:
 
-    $ bundle
+1. Using the SlidePay request methods directly with the desired API url and relevant request JSON
+2. Using an instance of the SlidePay::Client class to save an ApiResource, such as a payment, order, or item
+3. Using an instance of a SlidePay::ApiResource class, such as SlidePay::ApiKey or SlidePay::Payment
 
-Or install it yourself as:
+## Authentication
 
-    $ gem install slidepay-ruby-sdk
+An authenticated request can be made if either an api_key or token are supplied to the request method.
 
-## Usage
+Either of these fields can be set globally by assigning ```SlidePay.token``` or ```SlidePay.api_key```:
 
-TODO: Write usage instructions here
+```ruby
+SlidePay.token = "MY_TOKEN"
+```
+
+```ruby
+SlidePay.api_key = "MY_API_KEY"
+```
+
+The global token can also be set using the global SlidePay authentication method:
+
+```ruby
+SlidePay.authenticate(email, password)
+```
+
+These fields can also be used on an instance or per-request level by either passing them into the SlidePay module request methods as a field in a hash, or by assigning instance variables on a SlidePay::Client.
+
+```ruby
+SlidePay.get(path: "payment/#{payment_id}", token: "MY_TOKEN")
+SlidePay.get(path: "payment/#{payment_id}", api_key: "MY_TOKEN")
+```
+
+## Resources
+
+SlidePay::ApiResources are classes that encapsulate RESTful API resources. API interaction relative to these resources is handled by the following descriptive methods:
+
+- ```ruby save() ```
+- ```ruby destroy ```
+- ```ruby retrieve ```
+
+
+
+### Authentication
+
+
 
 ## Contributing
 
