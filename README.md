@@ -8,6 +8,7 @@ We depend on these fantastic libraries:
 
 - [rest-client](https://github.com/rest-client/rest-client)
 - [multi_json](https://github.com/intridea/multi_json)
+- [json](http://www.ruby-doc.org/stdlib-1.9.3/libdoc/json/rdoc/JSON.html)
 
 ## Building the Gem
 
@@ -33,7 +34,7 @@ Requests can be made three ways:
 
 A request to SlidePay is considered authenticated if either an api_key or token are present in the request. Information about how those are sent, and how they are obtained, can be found on [the authentication page of the api documentation](https://getcube.atlassian.net/wiki/display/CDP/Making+your+first+API+call%3A+authentication).
 
-Both the api_key and token can be set in an global, instance, and request context. The order of precedence goes from most to least specific, and tokens are of greater significance than api_keys. This means that an api_key provided to an instance of an ApiResource would be used over a global token, but would be ignored in the face of a token set on that same object, or either provided to a single request method.
+Both the api_key and token can be set in a global, instance, and request context. The order of precedence goes from most to least specific, and tokens are of greater significance than api_keys. This means that an api_key provided to an instance of an ApiResource would be used over a global token, but would be ignored in the face of a token set on that same object, and would yield to either provided to a single request method.
 
 Either of these fields can be set globally by assigning ```SlidePay.token``` or ```SlidePay.api_key```:
 
@@ -46,6 +47,12 @@ SlidePay.api_key = "MY_API_KEY"
 ```
 
 The global token can also be set using the global SlidePay authentication method:
+
+```ruby
+SlidePay.authenticate(email, password)
+```
+
+You can retrieve a token for use in any context with the retrieve_token method, which is similar to SlidePay.authenticate except that it returns the token string and does not set a global token value.
 
 ```ruby
 SlidePay.authenticate(email, password)
