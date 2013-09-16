@@ -2,7 +2,7 @@
 
 # Slidepay Ruby Sdk
 
-[![Build Status](https://travis-ci.org/SlidePay/slidepay-ruby-sdk.png)](https://travis-ci.org/SlidePay/slidepay-ruby-sdk)
+[![Build Status](https://travis-ci.org/SlidePay/slidepay-ruby-sdk.png)](https://travis-ci.org/SlidePay/slidepay-ruby-sdk) [![Code Climate](https://codeclimate.com/repos/5236cb7013d6371e46004010/badges/f963bebb1565c5419c78/gpa.png)](https://codeclimate.com/repos/5236cb7013d6371e46004010/feed)
 
 First version of the SlidePay Ruby SDK
 
