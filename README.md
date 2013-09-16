@@ -69,7 +69,7 @@ SlidePay.get(path: "payment/#{payment_id}", token: "MY_TOKEN")
 ```
 or
 ```ruby
-SlidePay.get(path: "payment/#{payment_id}", api_key: "MY_TOKEN")
+SlidePay.get(path: "payment/#{payment_id}", api_key: "MY_API_KEY")
 ```
 
 ## Resources
