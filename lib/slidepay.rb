@@ -14,7 +14,7 @@ require "slidepay/client"
 # CRUD Capable Resources
 require "slidepay/resources/api_resource"
 require "slidepay/resources/api_key"
-# require "slidepay/resources/payment"
+require "slidepay/resources/payment"
 
 module SlidePay
   class << self
@@ -81,9 +81,9 @@ module SlidePay
         when "GET"
           response = RestClient.get url, options
         when "PUT"
-          response = RestClient.post url, data, options
-        when "POST"
           response = RestClient.put url, data, options
+        when "POST"
+          response = RestClient.post url, data, options
         when "DELETE"
           response = RestClient.delete url, options
         else

@@ -52,7 +52,8 @@ module SlidePay
     end
 
     def populate_from_response(response)
-      if response.instance_of? Array
+      puts "Response: #{response.data}"
+      if response.data.instance_of? Array
         self.merge! response.data.first
       elsif response.data.instance_of? Hash
         self.merge! response.data
