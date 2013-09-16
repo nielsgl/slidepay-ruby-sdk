@@ -27,7 +27,7 @@ Requests can be made three ways:
 
 1. Using the SlidePay request methods directly with the desired API url and relevant request JSON
 2. [Coming Soon] Using an instance of the SlidePay::Client class to save an ApiResource, such as a payment, order, or item
-3. [Coming Soon] Using an instance of a SlidePay::ApiResource class, such as SlidePay::ApiKey or SlidePay::Payment
+3. Using an instance of a SlidePay::ApiResource class, such as SlidePay::ApiKey or SlidePay::Payment
 
 ## Authentication
 
@@ -113,7 +113,7 @@ ENV["api_key"]    = "super-secret-api-key-that-you-never-share"
 
 ## Note
 
-The SlidePay::Client class and SlidePay::ApiResource classes are not fully tested or functional.
+The SlidePay::Client class is largely untested and likely non-functional.
 
 Though I do not mention authentication in most examples following the authentication section of this document, an api_key or token, and an endpoint, can be supplied to any method that results triggers an API request. This flexibility allows for interacting with a single instance of a single ApiResource class without having to use the SlidePay module methods or the SlidePay::Client class. It also accommodates those developers who may wish to authenticate many SlidePay accounts within a single thread, such as inside a request context of a Rails application, or in a scheduled task, without having to repeatedly reset the SlidePay.token or SlidePay.api_key global values.
 
