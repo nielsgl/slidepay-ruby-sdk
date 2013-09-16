@@ -1,5 +1,8 @@
 $:.unshift(File.join(File.dirname(__FILE__), '../'))
 
+require "codeclimate-test-reporter"
+CodeClimate::TestReporter.start
+
 require 'multi_json'
 require 'pathname'
 
