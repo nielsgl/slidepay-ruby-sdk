@@ -1,4 +1,8 @@
+
+
 # Slidepay Ruby Sdk
+
+[![Build Status](https://travis-ci.org/SlidePay/slidepay-ruby-sdk.png)](https://travis-ci.org/SlidePay/slidepay-ruby-sdk)
 
 First version of the SlidePay Ruby SDK
 
