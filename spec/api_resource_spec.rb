@@ -3,12 +3,6 @@ require "spec_helper"
 
 describe SlidePay::ApiResource do
   before(:all) do
-    # SlidePay = double("SlidePay")
-    # SlidePay.stub(:get) { return "get" }
-    # SlidePay.stub(:post) { return "post" }
-    # SlidePay.stub(:put) { return "put" }
-    # SlidePay.stub(:delete) { return "delete" }
-
     SlidePay.configure(development: true)
   end
 
@@ -138,7 +132,7 @@ describe SlidePay::ApiResource do
       resource.url_root = "person"
       resource.id_attribute = :id
 
-      SlidePay.should_receive(:get).with(path: "person/1", token: nil, api_key: nil, endpoint: nil).and_return(a_successful_response_object)
+      SlidePay.should_receive(:get).with(path: "person/1", token: nil, api_key: nil, endpoint: nil).and_return(a_response_object)
       resource.retrieve()
     end
 
@@ -147,7 +141,7 @@ describe SlidePay::ApiResource do
       resource.url_root = "person"
       resource.id_attribute = "id"
 
-      SlidePay.should_receive(:get).with(path: "person/1", token: nil, api_key: nil, endpoint: nil).and_return(a_successful_response_object)
+      SlidePay.should_receive(:get).with(path: "person/1", token: nil, api_key: nil, endpoint: nil).and_return(a_response_object)
       resource.retrieve()
 
       expect(resource["id"]).to eq("1")
@@ -157,9 +151,9 @@ describe SlidePay::ApiResource do
 
   describe "save" do
     before(:all) do
-      SlidePay.stub(:get) { a_successful_response_object }
-      SlidePay.stub(:post) { a_successful_response_object }
-      SlidePay.stub(:put) { a_successful_response_object }
+      SlidePay.stub(:get) { a_response_object }
+      SlidePay.stub(:post) { a_response_object }
+      SlidePay.stub(:put) { a_response_object }
     end
 
     context "when the resource is new (has no id)" do
@@ -167,13 +161,13 @@ describe SlidePay::ApiResource do
         resource = SlidePay::ApiResource.new(name: "Dog the Bounty Hunter")
         resource.url_root = "person"
         resource.id_attribute = "id"
-        SlidePay.should_receive(:post).with(path: "person", token: nil, api_key: nil, endpoint: nil, data: resource.to_json).and_return(a_successful_response_object)
+        SlidePay.should_receive(:post).with(path: "person", token: nil, api_key: nil, endpoint: nil, data: resource.to_json).and_return(a_response_object)
         resource.save()
       end
 
       it "should populate the object with the returned values on a successful response" do
         resource = SlidePay::ApiResource.new(name: "Dog the Bounty Hunter")
-        SlidePay.should_receive(:post).and_return(a_successful_response_object)
+        SlidePay.should_receive(:post).and_return(a_response_object)
         resource.save()
 
         expect(resource["id"]).to eq("1")
@@ -187,7 +181,7 @@ describe SlidePay::ApiResource do
         resource.url_root = "person"
         resource.id_attribute = :id
 
-        SlidePay.should_receive(:put).with(path: "person/1", token: nil, api_key: nil, endpoint: nil, data: resource.to_json).and_return(a_successful_response_object)
+        SlidePay.should_receive(:put).with(path: "person/1", token: nil, api_key: nil, endpoint: nil, data: resource.to_json).and_return(a_response_object)
         resource.save()
       end
 
@@ -196,7 +190,7 @@ describe SlidePay::ApiResource do
         resource.url_root = "person"
         resource.id_attribute = :id
 
-        SlidePay.should_receive(:put).and_return(a_successful_response_object)
+        SlidePay.should_receive(:put).and_return(a_response_object)
         resource.save()
 
         expect(resource["id"]).to eq("1")
@@ -216,7 +210,7 @@ describe SlidePay::ApiResource do
       resource.id_attribute = :id
       resource.url_root = "person"
 
-      SlidePay.should_receive(:delete).and_return(a_successful_response_object(successful_deletion_response))
+      SlidePay.should_receive(:delete).and_return(a_response_object(successful_deletion_response))
       expect(resource.destroy()).to be_true
     end
 
@@ -225,7 +219,7 @@ describe SlidePay::ApiResource do
       resource.id_attribute = :id
       resource.url_root = "person"
 
-      SlidePay.should_receive(:delete).and_return(a_successful_response_object(successful_deletion_response))
+      SlidePay.should_receive(:delete).and_return(a_response_object(successful_deletion_response))
       expect(resource.destroy()).to be_true
       expect(resource[:id]).to be_nil
     end

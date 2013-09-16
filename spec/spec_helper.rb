@@ -13,7 +13,7 @@ module SlidePay
   TEST_API_KEY = ENV["api_key"]
 end
 
-def a_successful_response_object(json=nil)
+def a_response_object(json=nil)
   if json
     SlidePay::Response.new(json)
   else
@@ -334,6 +334,46 @@ def api_key_json
     "notes": "TEST DESCRIPTION",
     "created": "2013-09-15T05:58:16",
     "last_update": "2013-09-15T05:58:16"
+  }
+  eos
+end
+
+def successful_token_response
+  <<-eos
+  {
+    "success": true,
+    "custom": null,
+    "operation": "GET login",
+    "endpoint": "https://dev.getcube.com:65532",
+    "timezone": null,
+    "method": "get",
+    "obj": null,
+    "id": 0,
+    "milliseconds": "0.00",
+    "data": "TOKEN_FROM_THE_BEYOND",
+    "data_md5": "2A28E72629AA92B440F3A74F7CA4F9D5"
+  }
+  eos
+end
+
+def failed_token_response
+  <<-eos
+  {
+    "success": false,
+    "custom": null,
+    "operation": "GET login",
+    "endpoint": "https://dev.getcube.com:65532",
+    "timezone": null,
+    "method": "get",
+    "obj": null,
+    "id": 0,
+    "milliseconds": "0.00",
+    "data": {
+      "error_code": "5",
+      "error_file": "l_login.cs",
+      "error_text": "Authorization failed."
+    },
+    "data_md5": null
   }
   eos
 end
