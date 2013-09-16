@@ -3,8 +3,8 @@ require "rspec/core/rake_task"
 require "bundler/gem_tasks"
 require 'rspec'
 
-desc "Run spec suite"
+desc "Run the spec suite"
 RSpec::Core::RakeTask.new(:spec) { |t| }
 
-desc "Default the task to run the spec"
+desc "Default task to run the spec suite"
 task :default => [:spec]
