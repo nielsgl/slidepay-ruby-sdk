@@ -1,12 +1,41 @@
 module SlidePay
   class ApiResource < Hash
-    attr_accessor :resource_name, :id_attribute, :token, :api_key, :endpoint
+    attr_accessor :url_root, :id_attribute, :token, :api_key, :endpoint
+
+    def initialize(values_hash={})
+      if values_hash[:url_root]
+        @url_root = values_hash[:url_root]
+        values_hash.delete(:url_root)
+      end
+
+      if values_hash[:id_attribute]
+        @id_attribute = values_hash[:id_attribute]
+        values_hash.delete(:id_attribute)
+      end
+
+      if values_hash[:token]
+        @token = values_hash[:token]
+        values_hash.delete(:token)
+      end
+
+      if values_hash[:api_key]
+        @api_key = values_hash[:api_key]
+        values_hash.delete(:api_key)
+      end
+
+      if values_hash[:endpoint]
+        @endpoint = values_hash[:endpoint]
+        values_hash.delete(:endpoint)
+      end
+
+      merge! values_hash
+    end
 
     def url
       if is_new?
-        @resource_name
+        @url_root
       else
-        "#{@resource_name}/#{self.id()}"
+        "#{@url_root}/#{self.id()}"
       end
     end
 
@@ -41,7 +70,7 @@ module SlidePay
         raise Exception.new("Cannot retrieve an unsaved object from the server.")
       end
 
-      response = SlidePay.get(path: self.url(), token: @token, api_key: @api_key, endpoint: @endpoint)
+      response = SlidePay.get(path: self.url(), token: token, api_key: api_key, endpoint: endpoint)
       if response.was_successful?
         self.populate_from_response(response)
       end
@@ -53,11 +82,10 @@ module SlidePay
       endpoint = @endpoint || options_hash[:endpoint]
 
       if is_new?
-        puts "Saving existing #{@id_attribute}"
-        response = SlidePay.put(token: @token, api_key: @api_key, path: "#{@resource_name}/#{self[@id_attribute]}", data: self.to_json)
+        response = SlidePay.post(path: self.url(), token: token, api_key: api_key, endpoint: endpoint, data: self.to_json)
+
       else
-        puts "Saving new #{@id_attribute}"
-        response = SlidePay.post(token: @token, api_key: @api_key, path: "#{@resource_name}", data: self.to_json)
+        response = SlidePay.put(path: self.url(), token: token, api_key: api_key, endpoint: endpoint, data: self.to_json)
       end
 
       if response.was_successful?
@@ -73,7 +101,12 @@ module SlidePay
       api_key = @api_key || options_hash[:api_key]
       endpoint = @endpoint || options_hash[:endpoint]
 
-      response = SlidePay.delete(path: self.url(), token: @token, api_key: @api_key, endpoint: @endpoint)
+      if is_new?
+        raise Exception.new("Cannot destroy a resource that has not been saved.")
+      end
+
+      response = SlidePay.delete(path: self.url(), token: token, api_key: api_key, endpoint: endpoint)
+
       if response.was_successful?
         self[@id_attribute] = nil
         true

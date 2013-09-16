@@ -38,35 +38,34 @@ module SlidePay
       end
     end
 
-    def list()
-
+    def list(resource)
+      puts "Client.list called with: #{resource}"
     end
 
     def retrieve(resource)
-      puts "Client.retrieve called"
-
-      SlidePay.get(path: resource.url(), token: @token, api_key: @api_key)
+      puts "Client.retrieve called with: #{resource}"
+      # SlidePay.get(path: resource.url(), token: @token, api_key: @api_key)
     end
 
     def save(resource)
-      puts "Client.save called"
+      puts "Client.save called with: #{resource}"
 
-      if resource.is_new?
-        SlidePay.post(path: resource.url(), token: @token, api_key: @api_key, data: resource.to_json())
-      else
-        SlidePay.put(path: resource.url(), token: @token, api_key: @api_key, data: resource.to_json())
-      end
+      # if resource.is_new?
+      #   SlidePay.post(path: resource.url(), token: @token, api_key: @api_key, data: resource.to_json())
+      # else
+      #   SlidePay.put(path: resource.url(), token: @token, api_key: @api_key, data: resource.to_json())
+      # end
     end
 
     def create(resource)
-      puts "Client.create called"
+      puts "Client.create called with: #{resource}"
 
-      SlidePay.post(path: resource.url(), token: @token, api_key: @api_key, data: resource.to_json())
+      # SlidePay.post(path: resource.url(), token: @token, api_key: @api_key, data: resource.to_json())
     end
 
-    def destroy
-      puts "Client.destroy called"
-      SlidePay.delete(path: resource.url(), token: @token, api_key: @api_key)
+    def destroy(resource)
+      puts "Client.destroy called with: #{resource}"
+      # SlidePay.delete(path: resource.url(), token: @token, api_key: @api_key)
     end
 
   end

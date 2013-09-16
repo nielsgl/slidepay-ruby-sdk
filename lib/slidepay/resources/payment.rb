@@ -1,13 +1,21 @@
 module SlidePay
-  class Payment
+  class Payment < ApiResource
     @id_attribute = "payment_id"
-    @path = "payment/simple"
+    @url_root = "payment"
 
-    def process
+    def save(arguments_hash)
+      process(arguments_hash)
+    end
+
+    def destroy
+      false
+    end
+
+    def process(arguments_hash)
       SlidePay.post(api_key: @api_key, token: @token, data: self.to_json, path: "payment/simple")
     end
 
-    def refund
+    def refund(arguments_hash)
       SlidePay.post(api_key: @api_key, token: @token, data: self.to_json, path: "payment/refund")
     end
   end

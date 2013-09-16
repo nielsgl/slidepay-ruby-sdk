@@ -1,6 +1,7 @@
 # Dependencies
 require "rest-client"
 require "multi_json"
+require "json"
 
 # SlidePay Modules and
 require "slidepay/version"
@@ -12,7 +13,7 @@ require "slidepay/client"
 
 # CRUD Capable Resources
 require "slidepay/resources/api_resource"
-# require "slidepay/resources/api_key"
+require "slidepay/resources/api_key"
 # require "slidepay/resources/payment"
 
 module SlidePay

@@ -13,6 +13,14 @@ module SlidePay
   TEST_API_KEY = ENV["api_key"]
 end
 
+def a_successful_response_object(json=nil)
+  if json
+    SlidePay::Response.new(json)
+  else
+    SlidePay::Response.new(successful_object_response)
+  end
+end
+
 def set_global_api_key_from_env
   SlidePay.api_key = SlidePay::TEST_API_KEY
 end
@@ -46,6 +54,90 @@ end
 
 def object_from_response(json)
   MultiJson.decode(json)
+end
+
+
+def successful_deletion_response
+  <<-eos
+  {
+    "success": true,
+    "custom": null,
+    "operation": "DELETE person",
+    "endpoint": "https://dev.getcube.com:65532",
+    "timezone": "",
+    "method": "delete",
+    "obj": "person",
+    "id": 398,
+    "milliseconds": "3376.74",
+    "data": "Success",
+    "data_md5": "02CDC0A219FB85758EC8A9693478EC26"
+  }
+  eos
+end
+
+def failed_deletion_response
+  <<-eos
+  {
+    "success": false,
+    "custom": null,
+    "operation": "DELETE person",
+    "endpoint": "https://dev.getcube.com:65532",
+    "timezone": "",
+    "method": "delete",
+    "obj": "person",
+    "id": 0,
+    "milliseconds": "47.85",
+    "data": {
+      "error_code": "1",
+      "error_file": "l_delete_handler.cs",
+      "error_text": "The requested object was not found."
+    },
+    "data_md5": null
+  }
+  eos
+end
+
+def successful_object_response
+  <<-eos
+  {
+    "success": true,
+    "custom": null,
+    "operation": "GET person",
+    "endpoint": "https://dev.getcube.com:65532",
+    "timezone": null,
+    "method": "GET",
+    "obj": null,
+    "id": 0,
+    "milliseconds": "31.25",
+    "data": {
+      "id": "1",
+      "name": "Dog the Bounty Hunter"
+    },
+    "data_md5": "15D13569C731E9D77ABDCB3348A2EBDD"
+  }
+  eos
+end
+
+def failed_object_response
+  <<-eos
+  {
+    "success": false,
+    "custom": null,
+    "operation": "GET person",
+    "endpoint": "https://dev.getcube.com:65532",
+    "timezone": null,
+    "method": "GET",
+    "obj": null,
+    "id": 0,
+    "milliseconds": "31.25",
+    "data": {
+      "error_code": "4",
+      "error_file": "i_http_handler.cs",
+      "error_text": "ERROR_TEXT"
+    },
+    "data_md5": "15D13569C731E9D77ABDCB3348A2EBDD"
+  }
+  eos
 end
 
 def successful_endpoint_response
@@ -175,17 +267,17 @@ def successful_token_detail_response
       "created": "2013-09-15T01:11:20",
       "server_name": "cubeuswdev1",
       "endpoint": "https://dev.getcube.com:65532",
-      "email": "marothstein@gmail.com",
+      "email": "matt@slidepay.com",
       "password": null,
-      "ip_address": "50.193.11.137",
+      "ip_address": "12.12.12.12",
       "random": null,
       "timezone": "",
-      "company_id": 18,
-      "company_name": "Cube",
-      "location_id": 14,
-      "location_name": "Cube",
-      "user_master_id": 138,
-      "first_name": "Matty",
+      "company_id": 99,
+      "company_name": "AWESOME CO.",
+      "location_id": 99,
+      "location_name": "AWESOME LOC.",
+      "user_master_id": 99,
+      "first_name": "Matt",
       "last_name": "Rothstein",
       "is_clerk": 1,
       "is_locmgr": 1,
@@ -227,5 +319,21 @@ end
 
 def failed_payment_response
   <<-eos
+  eos
+end
+
+def api_key_json
+  <<-eos
+  {
+    "api_key_id": 99,
+    "company_id": 99,
+    "location_id": 99,
+    "user_master_id": 99,
+    "guid": "TEST_API_KEY",
+    "active": 1,
+    "notes": "TEST DESCRIPTION",
+    "created": "2013-09-15T05:58:16",
+    "last_update": "2013-09-15T05:58:16"
+  }
   eos
 end
