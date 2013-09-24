@@ -193,12 +193,12 @@ describe SlidePay do
     end
 
     it "should accept a string" do
-      SlidePay.should_receive(:get).with('token/detail').and_return(a_response_object(successful_token_detail_response))
+      SlidePay.should_receive(:request).with("GET", path: 'token/detail').and_return(a_response_object(successful_token_detail_response))
       expect(SlidePay.get('token/detail')).to be_a(SlidePay::Response)
     end
 
     it "should accept a hash" do
-      SlidePay.should_receive(:get).with(path: 'token/detail').and_return(a_response_object(successful_token_detail_response))
+      SlidePay.should_receive(:request).with("GET", path: 'token/detail').and_return(a_response_object(successful_token_detail_response))
       expect(SlidePay.get(path: 'token/detail')).to be_a(SlidePay::Response)
     end
   end
@@ -210,12 +210,12 @@ describe SlidePay do
     end
 
     it "should accept a string" do
-      SlidePay.should_receive(:delete).with('fictional_object/2').and_return(a_response_object(successful_deletion_response))
+      SlidePay.should_receive(:request).with("DELETE", path: 'fictional_object/2').and_return(a_response_object(successful_deletion_response))
       expect(SlidePay.delete('fictional_object/2')).to be_a(SlidePay::Response)
     end
 
     it "should accept a hash" do
-      SlidePay.should_receive(:delete).with(path: 'fictional_object/2').and_return(a_response_object(successful_deletion_response))
+      SlidePay.should_receive(:request).with("DELETE", path: 'fictional_object/2').and_return(a_response_object(successful_deletion_response))
       expect(SlidePay.delete(path: 'fictional_object/2')).to be_a(SlidePay::Response)
     end
   end
