@@ -254,6 +254,51 @@ def successful_array_response
   eos
 end
 
+def bank_account_array_response
+  <<-eos
+  {
+    "success": true,
+    "custom": null,
+    "operation": "GET bank_account",
+    "endpoint": "https://dev.getcube.com:65532",
+    "timezone": "",
+    "method": "get",
+    "obj": null,
+    "id": 0,
+    "milliseconds": "15.62",
+    "data": [
+      {
+        "bank_account_id": 211,
+        "company_id": 213,
+        "location_id": 285,
+        "user_master_id": 297,
+        "account_first_name": "Father",
+        "account_last_name": "Yummy Bears",
+        "name": "ACCOUNT 211",
+        "routing_number": "211123456",
+        "account_number": "211211211",
+        "created": "2013-09-06T04:05:49",
+        "last_update": "2013-09-06T04:05:49"
+      },
+      {
+        "customer_id": 210,
+        "company_id": 213,
+        "location_id": 285,
+        "user_master_id": 297,
+        "account_first_name": "Customer",
+        "account_last_name": "Robot Rabbit",
+        "name": "ACCOUNT 210",
+        "routing_number": "210123456",
+        "account_number": "210210210",
+        "created": "2013-09-05T16:57:33",
+        "last_update": "2013-09-05T16:57:33"
+      }
+    ],
+    "data_md5": "2B4A5BF8C70C97022E4824643E96C695"
+  }
+  eos
+end
+
 def successful_token_detail_response
   <<-eos
   {

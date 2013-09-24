@@ -70,23 +70,29 @@ module SlidePay
 
     # Resource Methods
     def list(resource)
-      puts "Client.list called with: #{resource}"
-      SlidePay.get(path: resource.url_root, api_key: @api_key, token: @token, endpoint: @endpoint)
+      response = SlidePay.get(path: resource.url_root, api_key: @api_key, token: @token, endpoint: @endpoint)
+      if response.was_successful?
+        resources = []
+        response.data.each do |resource_instance|
+          resources.push resource.class.new(resource_instance)
+        end
+      else
+        resources = []
+      end
+
+      resources
     end
 
     def retrieve(resource)
-      puts "Client.retrieve called with: #{resource}"
       resource.retrieve(api_key: @api_key, token: @token, endpoint: @endpoint)
     end
 
     def save(resource)
-      puts "Client.save called with: #{resource}"
       resource.save(api_key: @api_key, token: @token, endpoint: @endpoint)
     end
 
     def destroy(resource)
-      puts "Client.destroy called with: #{resource}"
-      resource.save(api_key: @api_key, token: @token, endpoint: @endpoint)
+      resource.destroy(api_key: @api_key, token: @token, endpoint: @endpoint)
     end
 
   end

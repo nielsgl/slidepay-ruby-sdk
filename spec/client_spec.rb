@@ -72,6 +72,70 @@ describe SlidePay::Client do
   end
 
   describe "resource request methods" do
+    describe "list" do
+      it "should use the resource's url_root with the SlidePay.get method" do
+        c = SlidePay::Client.new(api_key: "TEST_API_KEY", token: "TEST_TOKEN", endpoint: "TEST_ENDPOINT")
+        b = SlidePay::BankAccount.new()
+        SlidePay.should_receive(:get).with(path: b.url_root, api_key: "TEST_API_KEY", token: "TEST_TOKEN", endpoint: "TEST_ENDPOINT").and_return(a_response_object(bank_account_array_response))
+        c.list(b)
+      end
 
+      it "should return an array" do
+        c = SlidePay::Client.new(api_key: "TEST_API_KEY", token: "TEST_TOKEN", endpoint: "TEST_ENDPOINT")
+        b = SlidePay::BankAccount.new()
+        SlidePay.stub(:request) { a_response_object(bank_account_array_response) }
+
+        bank_accounts = c.list(b)
+        expect(bank_accounts).to be_a(Array)
+      end
+
+      it "should return an array of the proper length" do
+        c = SlidePay::Client.new(api_key: "TEST_API_KEY", token: "TEST_TOKEN", endpoint: "TEST_ENDPOINT")
+        b = SlidePay::BankAccount.new()
+        SlidePay.stub(:request) { a_response_object(bank_account_array_response) }
+
+        bank_accounts = c.list(b)
+        expect(bank_accounts).to be_a(Array)
+      end
+
+      it "should return an array of resources of the proper type" do
+        c = SlidePay::Client.new(api_key: "TEST_API_KEY", token: "TEST_TOKEN", endpoint: "TEST_ENDPOINT")
+        b = SlidePay::BankAccount.new()
+        SlidePay.stub(:request) { a_response_object(bank_account_array_response) }
+
+        bank_accounts = c.list(b)
+        expect(bank_accounts).to be_a(Array)
+        expect(bank_accounts.length).to eq(2)
+        expect(bank_accounts[0]).to be_a(SlidePay::BankAccount)
+        expect(bank_accounts[1]).to be_a(SlidePay::BankAccount)
+      end
+    end
+
+    describe "retrieve" do
+      it "should use the resource's method for fulfillment" do
+        c = SlidePay::Client.new(api_key: "TEST_API_KEY", token: "TEST_TOKEN", endpoint: "TEST_ENDPOINT")
+        b = SlidePay::BankAccount.new()
+        b.should_receive(:retrieve).with(api_key: "TEST_API_KEY", token: "TEST_TOKEN", endpoint: "TEST_ENDPOINT")
+        c.retrieve(b)
+      end
+    end
+
+    describe "save" do
+      it "should use the resource's method for fulfillment" do
+        c = SlidePay::Client.new(api_key: "TEST_API_KEY", token: "TEST_TOKEN", endpoint: "TEST_ENDPOINT")
+        b = SlidePay::BankAccount.new()
+        b.should_receive(:save).with(api_key: "TEST_API_KEY", token: "TEST_TOKEN", endpoint: "TEST_ENDPOINT")
+        c.save(b)
+      end
+    end
+
+    describe "destroy" do
+      it "should use the resource's method for fulfillment" do
+        c = SlidePay::Client.new(api_key: "TEST_API_KEY", token: "TEST_TOKEN", endpoint: "TEST_ENDPOINT")
+        b = SlidePay::BankAccount.new("bank_account_id" => 1)
+        b.should_receive(:destroy).with(api_key: "TEST_API_KEY", token: "TEST_TOKEN", endpoint: "TEST_ENDPOINT")
+        c.destroy(b)
+      end
+    end
   end
 end

@@ -83,7 +83,6 @@ module SlidePay
 
       if is_new?
         response = SlidePay.post(path: self.url(), token: token, api_key: api_key, endpoint: endpoint, data: self.to_json)
-
       else
         response = SlidePay.put(path: self.url(), token: token, api_key: api_key, endpoint: endpoint, data: self.to_json)
       end
