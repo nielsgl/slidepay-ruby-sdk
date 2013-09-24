@@ -1,6 +1,10 @@
 module SlidePay
   class Item < ApiResource
-    @url_root = "item"
-    @id_attribute = "item_id"
+    def initialize(values_hash={})
+      @url_root = "api_key"
+      @id_attribute = "api_key_id"
+
+      super(values_hash)
+    end
   end
 end

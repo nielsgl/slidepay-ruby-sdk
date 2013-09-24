@@ -11,8 +11,8 @@ module SlidePay
       process(options_hash)
     end
 
-    def destroy
-      false
+    def destroy(options_hash={})
+      refund(options_hash)
     end
 
     def process(options_hash={})

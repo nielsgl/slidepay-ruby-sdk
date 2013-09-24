@@ -362,11 +362,47 @@ end
 
 def successful_payment_response
   <<-eos
+  {
+    "success": true,
+    "custom": null,
+    "operation": "POST payment simple",
+    "endpoint": "https://dev.getcube.com:65532",
+    "timezone": "",
+    "method": "post",
+    "obj": null,
+    "id": 0,
+    "milliseconds": "15.62",
+    "data": {
+      "payment_id": "12",
+      "order_master_id": "10",
+      "method": "CreditCard",
+      "amount": "1.22"
+    },
+    "data_md5": "2B4A5BF8C70C97022E4824643E96C695"
+  }
   eos
 end
 
 def failed_payment_response
   <<-eos
+  {
+    "success": false,
+    "custom": null,
+    "operation": "POST payment simple",
+    "endpoint": "https://dev.getcube.com:65532",
+    "timezone": null,
+    "method": "post",
+    "obj": null,
+    "id": 0,
+    "milliseconds": "15.62",
+    "data": {
+      "status_message": "TEST_PAYMENT_FAILED_MESSAGE",
+      "order_master_id": "10",
+      "method": "CreditCard",
+      "amount": "1.22"
+    },
+    "data_md5": null
+  }
   eos
 end
 
