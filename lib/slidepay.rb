@@ -1,6 +1,7 @@
 # Dependencies
 require "rest-client"
 require "multi_json"
+require "json"
 
 # SlidePay Modules and
 require "slidepay/version"
@@ -12,8 +13,9 @@ require "slidepay/client"
 
 # CRUD Capable Resources
 require "slidepay/resources/api_resource"
-# require "slidepay/resources/api_key"
-# require "slidepay/resources/payment"
+require "slidepay/resources/api_key"
+require "slidepay/resources/payment"
+require "slidepay/resources/bank_account"
 
 module SlidePay
   class << self
@@ -80,9 +82,9 @@ module SlidePay
         when "GET"
           response = RestClient.get url, options
         when "PUT"
-          response = RestClient.post url, data, options
-        when "POST"
           response = RestClient.put url, data, options
+        when "POST"
+          response = RestClient.post url, data, options
         when "DELETE"
           response = RestClient.delete url, options
         else

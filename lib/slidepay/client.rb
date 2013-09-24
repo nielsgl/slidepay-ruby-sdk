@@ -38,35 +38,61 @@ module SlidePay
       end
     end
 
-    def list()
-
-    end
-
-    def retrieve(resource)
-      puts "Client.retrieve called"
-
-      SlidePay.get(path: resource.url(), token: @token, api_key: @api_key)
-    end
-
-    def save(resource)
-      puts "Client.save called"
-
-      if resource.is_new?
-        SlidePay.post(path: resource.url(), token: @token, api_key: @api_key, data: resource.to_json())
+    # Base Request Methods
+    def get(request_params)
+      if request_params.is_a? String
+        SlidePay.get(path: request_params, api_key: @api_key, token: @token, endpoint: @endpoint)
       else
-        SlidePay.put(path: resource.url(), token: @token, api_key: @api_key, data: resource.to_json())
+        request_params.merge! api_key: @api_key, token: @token, endpoint: @endpoint
+        SlidePay.get(request_params)
       end
     end
 
-    def create(resource)
-      puts "Client.create called"
-
-      SlidePay.post(path: resource.url(), token: @token, api_key: @api_key, data: resource.to_json())
+    def put(request_params)
+      request_params.merge! api_key: @api_key, token: @token, endpoint: @endpoint
+      SlidePay.put(request_params)
     end
 
-    def destroy
-      puts "Client.destroy called"
-      SlidePay.delete(path: resource.url(), token: @token, api_key: @api_key)
+    def post(request_params)
+      request_params.merge! api_key: @api_key, token: @token, endpoint: @endpoint
+      SlidePay.post(request_params)
+    end
+
+    def delete(request_params)
+      if request_params.is_a? String
+        SlidePay.delete(path: request_params, api_key: @api_key, token: @token, endpoint: @endpoint)
+      else
+        request_params.merge! api_key: @api_key, token: @token, endpoint: @endpoint
+        SlidePay.delete(request_params)
+      end
+    end
+
+
+    # Resource Methods
+    def list(resource)
+      response = SlidePay.get(path: resource.url_root, api_key: @api_key, token: @token, endpoint: @endpoint)
+      if response.was_successful?
+        resources = []
+        response.data.each do |resource_instance|
+          resources.push resource.class.new(resource_instance)
+        end
+      else
+        resources = []
+      end
+
+      resources
+    end
+
+    def retrieve(resource)
+      resource.retrieve(api_key: @api_key, token: @token, endpoint: @endpoint)
+    end
+
+    def save(resource)
+      resource.save(api_key: @api_key, token: @token, endpoint: @endpoint)
+    end
+
+    def destroy(resource)
+      resource.destroy(api_key: @api_key, token: @token, endpoint: @endpoint)
     end
 
   end
