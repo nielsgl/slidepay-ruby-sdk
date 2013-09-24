@@ -38,34 +38,55 @@ module SlidePay
       end
     end
 
+    # Base Request Methods
+    def get(request_params)
+      if request_params.is_a? String
+        SlidePay.get(path: request_params, api_key: @api_key, token: @token, endpoint: @endpoint)
+      else
+        request_params.merge! api_key: @api_key, token: @token, endpoint: @endpoint
+        SlidePay.get(request_params)
+      end
+    end
+
+    def put(request_params)
+      request_params.merge! api_key: @api_key, token: @token, endpoint: @endpoint
+      SlidePay.put(request_params)
+    end
+
+    def post(request_params)
+      request_params.merge! api_key: @api_key, token: @token, endpoint: @endpoint
+      SlidePay.post(request_params)
+    end
+
+    def delete(request_params)
+      if request_params.is_a? String
+        SlidePay.delete(path: request_params, api_key: @api_key, token: @token, endpoint: @endpoint)
+      else
+        request_params.merge! api_key: @api_key, token: @token, endpoint: @endpoint
+        SlidePay.delete(request_params)
+      end
+    end
+
+
+    # Resource Methods
     def list(resource)
       puts "Client.list called with: #{resource}"
+      SlidePay.get(path: resource.url_root, api_key: @api_key, token: @token, endpoint: @endpoint)
     end
 
     def retrieve(resource)
       puts "Client.retrieve called with: #{resource}"
-      # SlidePay.get(path: resource.url(), token: @token, api_key: @api_key)
+      resource.retrieve(api_key: @api_key, token: @token, endpoint: @endpoint)
     end
 
     def save(resource)
       puts "Client.save called with: #{resource}"
-
-      # if resource.is_new?
-      #   SlidePay.post(path: resource.url(), token: @token, api_key: @api_key, data: resource.to_json())
-      # else
-      #   SlidePay.put(path: resource.url(), token: @token, api_key: @api_key, data: resource.to_json())
-      # end
-    end
-
-    def create(resource)
-      puts "Client.create called with: #{resource}"
-
-      # SlidePay.post(path: resource.url(), token: @token, api_key: @api_key, data: resource.to_json())
+      resource.save(api_key: @api_key, token: @token, endpoint: @endpoint)
     end
 
     def destroy(resource)
       puts "Client.destroy called with: #{resource}"
-      # SlidePay.delete(path: resource.url(), token: @token, api_key: @api_key)
+      resource.save(api_key: @api_key, token: @token, endpoint: @endpoint)
     end
 
   end

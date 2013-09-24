@@ -15,6 +15,7 @@ require "slidepay/client"
 require "slidepay/resources/api_resource"
 require "slidepay/resources/api_key"
 require "slidepay/resources/payment"
+require "slidepay/resources/bank_account"
 
 module SlidePay
   class << self
