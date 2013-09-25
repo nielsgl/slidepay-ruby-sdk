@@ -31,7 +31,7 @@ Check out our [main documentation](https://getcube.atlassian.net/wiki/display/CD
 Requests can be made three ways:
 
 1. Using the SlidePay request methods directly with the desired API url and relevant request JSON
-2. [Coming Soon] Using an instance of the SlidePay::Client class to save an ApiResource, such as a payment, order, or item
+2. Using an instance of the SlidePay::Client class to save an ApiResource, such as a payment, order, or item
 3. Using an instance of a SlidePay::ApiResource class, such as SlidePay::ApiKey or SlidePay::Payment
 
 ## Authentication
