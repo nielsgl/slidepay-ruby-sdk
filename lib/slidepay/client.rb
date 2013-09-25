@@ -40,12 +40,14 @@ module SlidePay
 
     # Base Request Methods
     def get(request_params)
+      options = {}
       if request_params.is_a? String
-        SlidePay.get(path: request_params, api_key: @api_key, token: @token, endpoint: @endpoint)
+        options = { :path => request_params, :api_key => @api_key, :token => @token, :endpoint => @endpoint }
       else
-        request_params.merge! api_key: @api_key, token: @token, endpoint: @endpoint
-        SlidePay.get(request_params)
+        options.merge! api_key: @api_key, token: @token, endpoint: @endpoint
       end
+
+      SlidePay.get(options)
     end
 
     def put(request_params)
@@ -59,12 +61,13 @@ module SlidePay
     end
 
     def delete(request_params)
+      options = {}
       if request_params.is_a? String
-        SlidePay.delete(path: request_params, api_key: @api_key, token: @token, endpoint: @endpoint)
+        options = { :path => request_params, :api_key => @api_key, :token => @token, :endpoint => @endpoint }
       else
-        request_params.merge! api_key: @api_key, token: @token, endpoint: @endpoint
-        SlidePay.delete(request_params)
+        options.merge! api_key: @api_key, token: @token, endpoint: @endpoint
       end
+      SlidePay.delete(options)
     end
 
 
