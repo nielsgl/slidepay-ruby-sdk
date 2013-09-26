@@ -25,7 +25,7 @@ module SlidePay
       if response.was_successful?
         self["payment_id"] = response.data["payment_id"]
         self["order_master_id"] = response.data["order_master_id"]
-        true
+        response
       elsif response.error_text
         raise Exception.new(response.error_text)
       elsif response.data["status_message"]
